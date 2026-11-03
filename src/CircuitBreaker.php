@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tavaan\Engine\HttpClient;
 
-use Tavaan\Core\Contracts\Cache\RepositoryInterface as CacheRepository;
+use Tavaan\Engine\Cache\Contracts\RepositoryInterface as CacheRepository;
 use Tavaan\Engine\HttpClient\Exceptions\CircuitOpenException;
 use Tavaan\Support\Time\Clock;
 
