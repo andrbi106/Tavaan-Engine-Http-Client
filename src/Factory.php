@@ -6,67 +6,98 @@ namespace Tavaan\Engine\HttpClient;
 
 final class Factory
 {
-    public function get(/* ... */): mixed
+    private PendingRequest $pending;
+
+    public function __construct(private readonly array $config = [])
     {
-        return $this->call("GET", $uri);
+        $this->pending = new PendingRequest();
     }
-    public function post(/* ... */): mixed
+
+    public function get(string $url): Response
     {
-        return $this->call("POST", $uri, $data);
+        return $this->pending->get($url);
     }
-    public function put(/* ... */): mixed
+
+    public function post(string $url, mixed $data = null): Response
     {
-        return $this->call("PUT", $uri, $data);
+        return $this->pending->post($url, $data);
     }
-    public function patch(/* ... */): mixed
+
+    public function put(string $url, mixed $data = null): Response
     {
-        return $this->call("PATCH", $uri, $data);
+        return $this->pending->put($url, $data);
     }
-    public function delete(/* ... */): mixed
+
+    public function patch(string $url, mixed $data = null): Response
     {
-        return $this->call("DELETE", $uri, $data);
+        return $this->pending->patch($url, $data);
     }
-    public function withHeaders(/* ... */): mixed
+
+    public function delete(string $url, mixed $data = null): Response
     {
-        return null;
+        return $this->pending->delete($url, $data);
     }
-    public function withToken(/* ... */): mixed
+
+    public function withHeaders(array $headers): self
     {
-        return null;
+        $this->pending = $this->pending->withHeaders($headers);
+        return $this;
     }
-    public function asJson(/* ... */): mixed
+
+    public function withToken(string $token, string $type = 'Bearer'): self
     {
-        return null;
+        $this->pending->withToken($token, $type);
+        return $this;
     }
-    public function asForm(/* ... */): mixed
+
+    public function asJson(): self
     {
-        return null;
+        $this->pending->asJson();
+        return $this;
     }
-    public function timeout(/* ... */): mixed
+
+    public function asForm(): self
     {
-        return null;
+        $this->pending->asForm();
+        return $this;
     }
-    public function retry(/* ... */): mixed
+
+    public function timeout(int $seconds): self
     {
-        return null;
+        $this->pending->timeout($seconds);
+        return $this;
     }
-    public function pool(/* ... */): mixed
+
+    public function retry(int $times, int $delayMs = 100): self
     {
-        return null;
+        $this->pending->retry($times, $delayMs);
+        return $this;
     }
-    public function fake(/* ... */): mixed
+
+    public function pool(callable $callback): array
     {
-        return null;
+        $pool = new Pool();
+        $callback($pool);
+        return $pool->execute();
     }
-    public function assertSent(/* ... */): mixed
+
+    public function fake(array $urls = []): self
     {
-        $this->assertTrue(count($this->sent) > 0);
+        return $this;
     }
-    public function withQueryParameters(/* ... */): mixed
+
+    public function assertSent(callable $callback): self
     {
-        return null;
+        return $this;
     }
-    public function attach(/* ... */): mixed
+
+    public function withQueryParameters(array $params): self
+    {
+        $this->pending->withQueryParameters($params);
+        return $this;
+    }
+
+    public function attach(string $name, mixed $content, ?string $filename = null): self
     {
         return $this;
     }
