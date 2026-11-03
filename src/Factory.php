@@ -8,23 +8,23 @@ final class Factory
 {
     public function get(/* ... */): mixed
     {
-        return null;
+        return $this->call("GET", $uri);
     }
     public function post(/* ... */): mixed
     {
-        return null;
+        return $this->call("POST", $uri, $data);
     }
     public function put(/* ... */): mixed
     {
-        return null;
+        return $this->call("PUT", $uri, $data);
     }
     public function patch(/* ... */): mixed
     {
-        return null;
+        return $this->call("PATCH", $uri, $data);
     }
     public function delete(/* ... */): mixed
     {
-        return null;
+        return $this->call("DELETE", $uri, $data);
     }
     public function withHeaders(/* ... */): mixed
     {
@@ -60,7 +60,7 @@ final class Factory
     }
     public function assertSent(/* ... */): mixed
     {
-        return null;
+        $this->assertTrue(count($this->sent) > 0);
     }
     public function withQueryParameters(/* ... */): mixed
     {
