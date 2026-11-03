@@ -209,7 +209,8 @@ final class PendingRequest
         $opts = [
             'http' => [
                 'method' => $method,
-                'header' => \implode("\r\n", \array_map(
+                'header' => \implode("\r
+", \array_map(
                     fn($k, $v) => "{$k}: {$v}",
                     \array_keys($this->headers),
                     \array_values($this->headers)
