@@ -68,6 +68,6 @@ final class Factory
     }
     public function attach(/* ... */): mixed
     {
-        return null;
+        return $this;
     }
 }
