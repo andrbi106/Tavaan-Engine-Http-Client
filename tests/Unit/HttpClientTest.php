@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tavaan\Engine\HttpClient\Tests\Unit;
 
-use PHPUnit\Framework\TestCase;
+use Tavaan\Testing\TestCase;
 use Tavaan\Engine\HttpClient\HttpClient;
 use Tavaan\Engine\HttpClient\PendingRequest;
 use Tavaan\Engine\HttpClient\Response;
