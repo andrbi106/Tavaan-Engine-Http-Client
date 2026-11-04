@@ -15,7 +15,10 @@
   ],
   "requires": {
     "php": ">=8.2",
-    "engines": ["config", "event"]
+    "engines": [
+      "config",
+      "event"
+    ]
   },
   "config": {
     "file": "config/http-client.php",
@@ -27,5 +30,6 @@
     "name": "Http",
     "accessor": "http"
   },
-  "docs": "docs/03-engines/http-client.md"
+  "docs": "docs/03-engines/http-client.md",
+  "class": "Tavaan\\Engine\\HttpClient\\HttpClientEngine"
 }
